@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_forecast_and_current_location/location.dart';
@@ -33,8 +35,22 @@ Location l = await Location();
   Future<void> get_Data_from_api()async{
     Response response = await get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=af66f72d821d122b97e4d80e5249a27f'));
     print('this is api:----------> '+response.body);
+    //TODO: here i learn how to access data from api body or response
     print( response.statusCode);
-  }
+    String data = response.body;
+    var jd= jsonDecode(data);
+    var temperature_from_api=jd['main']['temp'];
+    var coord_from_api=jd['coord']['lat'];
+    var weather_from_api=jd['weather'][0]['description'];
+    var weather_id=jd["weather"][0]["id"];
+    var city_api= jd["name"];
+    print("weather_id: $weather_id");
+    print("city: $city_api");
+print("latitude: $coord_from_api");
+print("weather: $weather_from_api");
+    print("temperature: $temperature_from_api");
+
+  }//today i use api id i just create account in openweather website and got email where they give me api id and they give me sample of london which is very helpfull for me
   @override
   Widget build(BuildContext context) {
     get_Data_from_api();
@@ -61,4 +77,3 @@ Location l = await Location();
     );
   }
 }
-//today i use api id i just create account in openweather website and got email where they give me api id and they give me sample of london which is very helpfull for me
