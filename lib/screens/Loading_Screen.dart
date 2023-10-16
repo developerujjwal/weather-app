@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_forecast_and_current_location/location.dart';
 import 'package:http/http.dart';
-
+const apiidd="af66f72d821d122b97e4d80e5249a27f";
 class Loading_Screen extends StatefulWidget {
   const Loading_Screen({super.key});
 
@@ -20,6 +20,7 @@ Location l =   new Location();
  await l.getCurrentLocation();
  longitude_wather=l.Longitude_number;
  latitude_weather=l.Latitude_number;
+get_Data_from_api();
 print("Longitude_number: ---------  ------");
  print(l.Longitude_number);
 //print(l.Latitude_number);
@@ -37,7 +38,7 @@ print("Longitude_number: ---------  ------");
     LocationPermission permission = await Geolocator.requestPermission();
   }
   Future<void> get_Data_from_api()async{
-    Response response = await get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=af66f72d821d122b97e4d80e5249a27f'));
+    Response response = await get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?lat=$latitude_weather&lon=$longitude_wather&appid=$apiidd'));
     print('this is api:----------> '+response.body);
     //TODO: here i learn how to access data from api body or response
     print( response.statusCode);
@@ -48,6 +49,8 @@ print("Longitude_number: ---------  ------");
     var weather_from_api=jd['weather'][0]['description'];
     var weather_id=jd["weather"][0]["id"];
     var city_api= jd["name"];
+    var country_name=jd["sys"]["country"];
+    print("country: $country_name");
     print("weather_id: $weather_id");
     print("city: $city_api");
 print("latitude: $coord_from_api");
@@ -57,7 +60,7 @@ print("weather: $weather_from_api");
   }//today i use api id i just create account in openweather website and got email where they give me api id and they give me sample of london which is very helpfull for me
   @override
   Widget build(BuildContext context) {
-    get_Data_from_api();
+
     return Scaffold(
       body: SafeArea(
         child: Column(
