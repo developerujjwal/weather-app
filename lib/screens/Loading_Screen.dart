@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_forecast_and_current_location/location.dart';
 import 'package:http/http.dart';
-double? latitude_weather;
-double? longitude_wather;
+
 class Loading_Screen extends StatefulWidget {
   const Loading_Screen({super.key});
 
@@ -14,13 +13,18 @@ class Loading_Screen extends StatefulWidget {
 }
 //
 class _Loading_ScreenState extends State<Loading_Screen> {
-  void geolocation_your_phone() async{
-Location l = await Location();
- l.getCurrentLocation();
+    double? latitude_weather;
+   double? longitude_wather;
+  void geolocation_your_phone()async {
+Location l =   new Location();
+ await l.getCurrentLocation();
  longitude_wather=l.Longitude_number;
  latitude_weather=l.Latitude_number;
-//print(l.Longitude_number);
+print("Longitude_number: ---------  ------");
+ print(l.Longitude_number);
 //print(l.Latitude_number);
+  print('current latitude: $latitude_weather');
+  print('current longitude: $longitude_wather');
   }
   @override
   void initState() {
