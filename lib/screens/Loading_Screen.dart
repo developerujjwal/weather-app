@@ -15,6 +15,10 @@ class Loading_Screen extends StatefulWidget {
 class _Loading_ScreenState extends State<Loading_Screen> {
     double? latitude_weather;
    double? longitude_wather;
+   String? country_n;
+   String? city_g;
+   String? weather_of_mine;
+   double? temperature_of;
   void geolocation_your_phone()async {
 Location l =   new Location();
  await l.getCurrentLocation();
@@ -50,6 +54,14 @@ print("Longitude_number: ---------  ------");
     var weather_id=jd["weather"][0]["id"];
     var city_api= jd["name"];
     var country_name=jd["sys"]["country"];
+
+    country_n=jd["sys"]["country"];
+    city_g=jd["name"];
+    weather_of_mine=jd["weather"][0]["description"];
+    temperature_of=jd["main"]["temp"];
+
+
+
     print("country: $country_name");
     print("weather_id: $weather_id");
     print("city: $city_api");
@@ -67,6 +79,10 @@ print("weather: $weather_from_api");
           children: [
             Text("Latitude: $latitude_weather"),
             Text("Longitude: $longitude_wather"),
+            Text(" Country: $country_n"),
+            Text("city: $city_g"),
+            Text("weather: $weather_of_mine"),
+            Text("temp: $temperature_of"),
             Center(
               child: ElevatedButton(
                 onPressed: (){
