@@ -13,19 +13,13 @@ class Loading_Screen extends StatefulWidget {
 }
 //
 class _Loading_ScreenState extends State<Loading_Screen> {
-    double? latitude_weather;
-   double? longitude_wather;
-   String? country_n;
-   String? city_g;
-   String? weather_of_mine;
-   double? temperature_of;
+
   void geolocation_your_phone()async {
 Location l =   new Location();
  await l.getCurrentLocation();
- longitude_wather=l.Longitude_number;
- latitude_weather=l.Latitude_number;
+
 //get_Data_from_api();
-Network_Helper network_helper = new Network_Helper('https://api.openweathermap.org/data/2.5/weather?lat=$latitude_weather&lon=$longitude_wather&appid=$apiidd');
+Network_Helper network_helper = new Network_Helper('https://api.openweathermap.org/data/2.5/weather?lat=${l.Latitude_number}&lon=${l.Longitude_number}&appid=$apiidd&units=metric');
 
    var weather_Data=await network_helper.getdata();
 

@@ -8,12 +8,32 @@ class location_screen extends StatefulWidget {
 }
 
 class _location_screenState extends State<location_screen> {
+
+  String? country_n;
+  String? city_g;
+  String? weather_of_mine;
+ int? temperature_of;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("widget weather : ");
-    print(widget.weather_data);
+    updateUI(widget.weather_data);
+  }
+
+  void updateUI(dynamic weatherdata){
+
+country_n=weatherdata["sys"]["country"];
+city_g=weatherdata["name"];
+weather_of_mine=weatherdata["weather"][0]["description"];
+double temp=weatherdata["main"]["temp"];
+temperature_of=temp.toInt();
+
+print("country: $country_n");
+print("temperature: $temperature_of");
+print("city_g: $city_g");
+print("weather_Data: $weather_of_mine");
+
   }
   @override
   Widget build(BuildContext context) {
@@ -32,7 +52,7 @@ class _location_screenState extends State<location_screen> {
             ),
             Row(
               children: [
-                Text('35'),
+                Text('$temperature_of'),
                 Text('*')
               ],
             ),
@@ -48,9 +68,4 @@ class _location_screenState extends State<location_screen> {
 
 
 
-/*
-country_n=jd["sys"]["country"];
-city_g=jd["name"];
-weather_of_mine=jd["weather"][0]["description"];
-temperature_of=jd["main"]["temp"];
-*/
+
