@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast_and_current_location/services/location.dart';
 import 'location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-const apiidd="af66f72d821d122b97e4d80e5249a27f";
+import 'package:weather_forecast_and_current_location/services/weather.dart';
 class Loading_Screen extends StatefulWidget {
   const Loading_Screen({super.key});
 
@@ -15,16 +15,10 @@ class Loading_Screen extends StatefulWidget {
 class _Loading_ScreenState extends State<Loading_Screen> {
 
   void geolocation_your_phone()async {
-Location l =   new Location();
- await l.getCurrentLocation();
-
-//get_Data_from_api();
-Network_Helper network_helper = new Network_Helper('https://api.openweathermap.org/data/2.5/weather?lat=${l.Latitude_number}&lon=${l.Longitude_number}&appid=$apiidd&units=metric');
-
-   var weather_Data=await network_helper.getdata();
-
+Weathermodel livelocation = new Weathermodel();
+var data_weather = await livelocation.Current_Location_Live();
    Navigator.push(context, MaterialPageRoute(builder: (context){
-     return location_screen(weather_data: weather_Data,);
+     return location_screen(weather_data: data_weather,);
    }));
     /*print("Longitude_number: ---------  ------");
  print(l.Longitude_number);

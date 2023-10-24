@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast_and_current_location/services/weather.dart';
+import 'city_screen.dart';
 class location_screen extends StatefulWidget {
   location_screen({required this.weather_data});
   final weather_data;
@@ -25,20 +26,28 @@ String? weather_icon;
   }
 
   void updateUI(dynamic weatherdata){
+setState(() {
+if(weatherdata==null){
+  temperature_of=0;
+  city_g=" ";
+  Message_weather=" unable to get weather dats";
+  weather_icon="Error";
+  return;
+}
+  country_n=weatherdata["sys"]["country"];
+  city_g=weatherdata["name"];
+  weather_of_mine=weatherdata["weather"][0]["description"];
+  double temp=weatherdata["main"]["temp"];
+  temperature_of=temp.toInt();
+  var condition = weatherdata["weather"][0]["id"];
+  weather_icon = weather.getweathericon(condition);
+  Message_weather = weather.messageget(temperature_of!);
+  print("country: $country_n");
+  print("temperature: $temperature_of");
+  print("city_g: $city_g");
+  print("weather_Data: $weather_of_mine");
 
-country_n=weatherdata["sys"]["country"];
-city_g=weatherdata["name"];
-weather_of_mine=weatherdata["weather"][0]["description"];
-double temp=weatherdata["main"]["temp"];
-temperature_of=temp.toInt();
-var condition = weatherdata["weather"][0]["id"];
-weather_icon = weather.getweathericon(condition);
-Message_weather = weather.messageget(temperature_of!);
-print("country: $country_n");
-print("temperature: $temperature_of");
-print("city_g: $city_g");
-print("weather_Data: $weather_of_mine");
-
+});
   }
   @override
   Widget build(BuildContext context) {
@@ -51,8 +60,17 @@ print("weather_Data: $weather_of_mine");
           children: [
             Row(
               children: [
-                TextButton(onPressed: (){}, child: Icon(Icons.near_me, size: 50,)),
-                TextButton(onPressed: (){}, child: Icon(Icons.location_city,size: 50,))
+                TextButton(onPressed: ()async{
+
+
+                   var weatherdatadata = await weather.Current_Location_Live();
+                updateUI(weatherdatadata);
+                }, child: Icon(Icons.near_me, size: 50,)),
+                TextButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return City_screen();
+                  }));
+                }, child: Icon(Icons.location_city,size: 50,))
               ],
             ),
             Row(
@@ -61,7 +79,7 @@ print("weather_Data: $weather_of_mine");
                 Text('$weather_icon')
               ],
             ),
-            Text('$Message_weather $city_g')
+            Text('$Message_weather in $city_g $country_n')
           ],
         ),
       ),
