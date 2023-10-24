@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_and_current_location/services/weather.dart';
 class location_screen extends StatefulWidget {
   location_screen({required this.weather_data});
   final weather_data;
@@ -8,7 +9,9 @@ class location_screen extends StatefulWidget {
 }
 
 class _location_screenState extends State<location_screen> {
-
+Weathermodel weather = new Weathermodel();
+String? Message_weather;
+String? weather_icon;
   String? country_n;
   String? city_g;
   String? weather_of_mine;
@@ -28,7 +31,9 @@ city_g=weatherdata["name"];
 weather_of_mine=weatherdata["weather"][0]["description"];
 double temp=weatherdata["main"]["temp"];
 temperature_of=temp.toInt();
-
+var condition = weatherdata["weather"][0]["id"];
+weather_icon = weather.getweathericon(condition);
+Message_weather = weather.messageget(temperature_of!);
 print("country: $country_n");
 print("temperature: $temperature_of");
 print("city_g: $city_g");
@@ -53,10 +58,10 @@ print("weather_Data: $weather_of_mine");
             Row(
               children: [
                 Text('$temperature_of'),
-                Text('*')
+                Text('$weather_icon')
               ],
             ),
-            Text('its time in san francisco')
+            Text('$Message_weather $city_g')
           ],
         ),
       ),
