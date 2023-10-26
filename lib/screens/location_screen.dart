@@ -17,6 +17,7 @@ String? weather_icon;
   String? city_g;
   String? weather_of_mine;
  int? temperature_of;
+var condition_w;
   @override
   void initState() {
     // TODO: implement initState
@@ -24,6 +25,8 @@ String? weather_icon;
     print("widget weather : ");
     updateUI(widget.weather_data);
   }
+
+
 
   void updateUI(dynamic weatherdata){
 setState(() {
@@ -40,6 +43,7 @@ if(weatherdata==null){
   double temp=weatherdata["main"]["temp"];
   temperature_of=temp.toInt();
   var condition = weatherdata["weather"][0]["id"];
+  condition_w=condition;
   weather_icon = weather.getweathericon(condition);
   Message_weather = weather.messageget(temperature_of!);
   print("country: $country_n");
@@ -49,15 +53,51 @@ if(weatherdata==null){
 
 });
   }
+
+String location_screen_wallpaper(){
+
+  if(condition_w<300){
+    return 'images/thunderstorm.jpg';
+  }
+  else if((condition_w)<400){
+    //return '🌧';
+    return 'images/heavy_rain.jpg';
+  }
+  else if((condition_w)<600){
+    //return '☔️';
+    return 'images/rainy.jpg';
+  }
+  else if((condition_w)<700)
+  {
+    //return '☃️';
+    return 'images/chill.jpg';
+  }
+  else if((condition_w)<800){
+    //return '🌫';
+    return 'images/noraml_weather.jpg';
+  }
+  else if((condition_w)==800){
+    //return '☀';
+    return 'images/sunny_weather.jpg';
+  }
+  else if((condition_w) <=804){
+    //return '☁️';
+    return 'images/cloudy.jpg';
+  }
+  else{
+    //return '🤷‍';
+    return 'images/nothing.jpeg';
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage('images/01.jpg'),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage(location_screen_wallpaper(),),opacity: 90,
         fit: BoxFit.cover)),
       child: SafeArea(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,17 +122,17 @@ if(weatherdata==null){
               ],
             ),
             SizedBox(
-              height: 50,
+              height: 150,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('$temperature_of',style: TextStyle(fontSize: 50),),
-                Text('$weather_icon',style: TextStyle(fontSize: 50),)
+                Text('$temperature_of',style: TextStyle(fontSize: 120),),
+                Text('$weather_icon ',style: TextStyle(fontSize: 50),)
               ],
             ),
             SizedBox(
-              height: 400,
+              height: 60,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
