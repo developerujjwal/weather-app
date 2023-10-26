@@ -66,10 +66,16 @@ if(weatherdata==null){
                    var weatherdatadata = await weather.Current_Location_Live();
                 updateUI(weatherdatadata);
                 }, child: Icon(Icons.near_me, size: 50,)),
-                TextButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                TextButton(onPressed: ()async{
+                 var navigator_output= await Navigator.push(context, MaterialPageRoute(builder: (context){
                     return City_screen();
                   }));
+                 if(navigator_output!=null){
+
+                   var city_l=await weather.city_location_weather(navigator_output);
+
+                   updateUI(city_l);
+                 }
                 }, child: Icon(Icons.location_city,size: 50,))
               ],
             ),

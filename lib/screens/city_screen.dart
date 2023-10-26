@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:weather_forecast_and_current_location/utilities/constants.dart';
 class City_screen extends StatefulWidget {
   const City_screen({super.key});
 
@@ -8,6 +8,7 @@ class City_screen extends StatefulWidget {
 }
 
 class _City_screenState extends State<City_screen> {
+  String? text_field_input;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,27 +23,27 @@ class _City_screenState extends State<City_screen> {
               Align(
                   alignment: Alignment.topLeft,
                   child: TextButton(
-                      onPressed: () {}, child: Icon(Icons.arrow_back_ios))),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }, child: Icon(Icons.arrow_back_ios))),
               Container(
                 margin: EdgeInsets.all(15),
                 child: TextField(
                   style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Enter City',
-                    icon: Icon(Icons.location_city,color: Colors.white,),
-                    hintStyle: TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    borderSide: BorderSide.none),
+                  decoration: k_textfield_decoration,
+                  onChanged: (value) {
+                    text_field_input=value;
+                  },
+                  /*onChanged: (value){
 
-                  ),
+
+                    print(value);
+                  },*/
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text("Get Weather"))
+              TextButton(onPressed: () async{
+                Navigator.pop(context,await text_field_input);
+              }, child: Text("Get Weather"))
             ],
           ),
         ),

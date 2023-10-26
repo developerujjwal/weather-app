@@ -5,6 +5,13 @@ const apiidd="af66f72d821d122b97e4d80e5249a27f";
 
 class Weathermodel{
 
+  Future<dynamic> city_location_weather(String location_city_weather)async{
+    Network_Helper n_h = new Network_Helper('https://api.openweathermap.org/data/2.5/weather?q=$location_city_weather&appid=$apiidd');
+  var weather_city_data= await n_h.getdata();
+  return weather_city_data;
+
+  }
+
   Future<dynamic> Current_Location_Live()async{
     Location l =   new Location();
     await l.getCurrentLocation();
