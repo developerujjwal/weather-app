@@ -57,8 +57,10 @@ if(weatherdata==null){
         fit: BoxFit.cover)),
       child: SafeArea(
         child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(onPressed: ()async{
 
@@ -76,16 +78,26 @@ if(weatherdata==null){
 
                    updateUI(city_l);
                  }
-                }, child: Icon(Icons.location_city,size: 50,))
+                }, child: Icon(Icons.location_city,size: 50,), )
               ],
+            ),
+            SizedBox(
+              height: 50,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('$temperature_of'),
-                Text('$weather_icon')
+                Text('$temperature_of',style: TextStyle(fontSize: 50),),
+                Text('$weather_icon',style: TextStyle(fontSize: 50),)
               ],
             ),
-            Text('$Message_weather in $city_g $country_n')
+            SizedBox(
+              height: 400,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('$Message_weather in $city_g $country_n',style: TextStyle(fontSize: 50,),),
+            )
           ],
         ),
       ),

@@ -10,8 +10,10 @@ class myWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       MaterialApp(
+
        theme: ThemeData.dark(),
         home: Loading_Screen(),
+        debugShowCheckedModeBanner: false,
       );
   }
 }

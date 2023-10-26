@@ -43,7 +43,7 @@ class _City_screenState extends State<City_screen> {
               ),
               TextButton(onPressed: () async{
                 Navigator.pop(context,await text_field_input);
-              }, child: Text("Get Weather"))
+              }, child: Text("Get Weather", style: TextStyle( fontSize: 30, color: Colors.white),))
             ],
           ),
         ),
