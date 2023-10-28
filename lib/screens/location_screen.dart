@@ -91,6 +91,8 @@ String location_screen_wallpaper(){
 }
   @override
   Widget build(BuildContext context) {
+    double hheight = MediaQuery.of(context).size.height;
+    double wwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage(location_screen_wallpaper(),),opacity: 90,
@@ -127,7 +129,7 @@ String location_screen_wallpaper(){
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('$temperature_of',style: TextStyle(fontSize: 120),),
+                Text('$temperature_of°',style: TextStyle(fontSize: 120),),
                 Text('$weather_icon ',style: TextStyle(fontSize: 50),)
               ],
             ),
