@@ -129,7 +129,7 @@ String location_screen_wallpaper(){
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('$temperature_of°',style: TextStyle(fontSize: 120),),
+                Text('$temperature_of°C',style: TextStyle(fontSize: 120),),
                 Text('$weather_icon ',style: TextStyle(fontSize: 50),)
               ],
             ),
