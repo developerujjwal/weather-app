@@ -60,32 +60,32 @@ String location_screen_wallpaper(){
     return 'images/thunderstorm.jpg';
   }
   else if((condition_w)<400){
-    //return '🌧';
+
     return 'images/heavy_rain.jpg';
   }
   else if((condition_w)<600){
-    //return '☔️';
+
     return 'images/rainy.jpg';
   }
   else if((condition_w)<700)
   {
-    //return '☃️';
+
     return 'images/chill.jpg';
   }
   else if((condition_w)<800){
-    //return '🌫';
+
     return 'images/noraml_weather.jpg';
   }
   else if((condition_w)==800){
-    //return '☀';
+
     return 'images/sunny_weather.jpg';
   }
   else if((condition_w) <=804){
-    //return '☁️';
+
     return 'images/cloudy.jpg';
   }
   else{
-    //return '🤷‍';
+
     return 'images/nothing.jpeg';
   }
 }

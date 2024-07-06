@@ -6,9 +6,7 @@ class Network_Helper{
   final String urll;
   Future<dynamic> getdata()async{
     Response response = await get(Uri.parse(urll));
-    //print('this is api:----------> '+response.body);
-    //TODO: here i learn how to access data from api body or response
-    //print( response.statusCode);
+
     String data = response.body;
     var jd= jsonDecode(data);
     print("status code: ");
@@ -30,6 +28,3 @@ else{
 
   }
 }
-/*
-https://chat.openai.com/share/c5c3cce6-6753-4a16-a9f0-5cd75efbd59c
-*/
