@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast_and_current_location/screens/location_screen.dart';
 import 'package:weather_forecast_and_current_location/utilities/constants.dart';
 import 'package:weather_forecast_and_current_location/services/weather.dart';
+import 'package:geolocator/geolocator.dart';
 class City_screen extends StatefulWidget {
   const City_screen({super.key});
 
@@ -10,6 +11,16 @@ class City_screen extends StatefulWidget {
 }
 
 class _City_screenState extends State<City_screen> {
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+    req();
+
+  }
+  void req()async{
+    LocationPermission permission = await Geolocator.requestPermission();
+  }
   String text_field_input="";
   @override
   Widget build(BuildContext context) {
