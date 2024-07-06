@@ -17,6 +17,7 @@ class _Loading_ScreenState extends State<Loading_Screen> {
   void geolocation_your_phone()async {
 Weathermodel livelocation = new Weathermodel();
 var data_weather = await livelocation.Current_Location_Live();
+print("--------------------->>>>>>>>>>data_weather $data_weather <<<<<<<<<<<<<<<<<<<<<<");
    Navigator.push(context, MaterialPageRoute(builder: (context){
      return location_screen(weather_data: data_weather,);
    }));

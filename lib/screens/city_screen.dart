@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_and_current_location/screens/location_screen.dart';
 import 'package:weather_forecast_and_current_location/utilities/constants.dart';
+import 'package:weather_forecast_and_current_location/services/weather.dart';
 class City_screen extends StatefulWidget {
   const City_screen({super.key});
 
@@ -8,7 +10,7 @@ class City_screen extends StatefulWidget {
 }
 
 class _City_screenState extends State<City_screen> {
-  String? text_field_input;
+  String text_field_input="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +44,12 @@ class _City_screenState extends State<City_screen> {
                 ),
               ),
               TextButton(onPressed: () async{
-                Navigator.pop(context,await text_field_input);
+                //Navigator.pop(context,await text_field_input);
+                Weathermodel livelocation = new Weathermodel();
+                var data_weather = await livelocation.city_location_weather(text_field_input);
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return location_screen(weather_data: data_weather);
+                }));
               }, child: Text("Get Weather", style: TextStyle( fontSize: 30, color: Colors.white),))
             ],
           ),
