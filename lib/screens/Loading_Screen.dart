@@ -6,7 +6,8 @@ import 'location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_forecast_and_current_location/services/weather.dart';
 class Loading_Screen extends StatefulWidget {
-  const Loading_Screen({super.key});
+  Loading_Screen({required this.loadingscreendata});
+  final loadingscreendata;
 
   @override
   State<Loading_Screen> createState() => _Loading_ScreenState();
@@ -15,23 +16,13 @@ class Loading_Screen extends StatefulWidget {
 class _Loading_ScreenState extends State<Loading_Screen> {
 
   void geolocation_your_phone()async {
-Weathermodel livelocation = new Weathermodel();
-var data_weather = await livelocation.Current_Location_Live();
+
 
    Navigator.push(context, MaterialPageRoute(builder: (context){
-     return location_screen(weather_data: data_weather,);
+     return location_screen(weather_data: widget.loadingscreendata,);
    }));
   }
-  @override
-  void initState()  {
-    // TODO: implement initState
-    super.initState();
-    req();
-geolocation_your_phone();
-  }
-  void req()async{
-    LocationPermission permission = await Geolocator.requestPermission();
-  }
+
     @override
   Widget build(BuildContext context) {
 

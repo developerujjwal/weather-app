@@ -3,6 +3,7 @@ import 'package:weather_forecast_and_current_location/screens/location_screen.da
 import 'package:weather_forecast_and_current_location/utilities/constants.dart';
 import 'package:weather_forecast_and_current_location/services/weather.dart';
 import 'package:geolocator/geolocator.dart';
+
 class City_screen extends StatefulWidget {
   const City_screen({super.key});
 
@@ -11,57 +12,82 @@ class City_screen extends StatefulWidget {
 }
 
 class _City_screenState extends State<City_screen> {
+  bool _isLoading = false;
+  String text_field_input = "";
+
   @override
-  void initState()  {
-    // TODO: implement initState
+  void initState() {
     super.initState();
     req();
-
   }
-  void req()async{
+
+  void req() async {
     LocationPermission permission = await Geolocator.requestPermission();
   }
-  String text_field_input="";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/screen_city.jpg"),alignment: Alignment.bottomCenter,
-                fit: BoxFit.cover)),
+          image: DecorationImage(
+            image: AssetImage("images/screen_city.jpg"),
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.cover,
+          ),
+        ),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              Align(
-                  alignment: Alignment.topLeft,
-                  child: TextButton(
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: TextButton(
                       onPressed: () {
                         Navigator.pop(context);
-                      }, child: Icon(Icons.arrow_back_ios))),
-              Container(
-                margin: EdgeInsets.all(15),
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: k_textfield_decoration,
-                  onChanged: (value) {
-                    text_field_input=value;
-                  },
-                  /*onChanged: (value){
+                      },
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    child: TextField(
+                      style: TextStyle(color: Colors.black),
+                      decoration: k_textfield_decoration,
+                      onChanged: (value) {
+                        text_field_input = value;
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
 
+                      Weathermodel livelocation = new Weathermodel();
+                      var data_weather = await livelocation.city_location_weather(text_field_input);
 
-                    print(value);
-                  },*/
-                ),
+                      setState(() {
+                        _isLoading = false;
+                      });
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return location_screen(weather_data: data_weather);
+                      }));
+                    },
+                    child: Text(
+                      "Get Weather",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-              TextButton(onPressed: () async{
-                //Navigator.pop(context,await text_field_input);
-                Weathermodel livelocation = new Weathermodel();
-                var data_weather = await livelocation.city_location_weather(text_field_input);
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return location_screen(weather_data: data_weather);
-                }));
-              }, child: Text("Get Weather", style: TextStyle( fontSize: 30, color: Colors.white),))
+              if (_isLoading)
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
             ],
           ),
         ),
