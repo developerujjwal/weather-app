@@ -41,7 +41,7 @@ if(weatherdata==null){
   city_g=weatherdata["name"];
   weather_of_mine=weatherdata["weather"][0]["description"];
   double temp=weatherdata["main"]["temp"];
-  temperature_of=temp.toInt();
+temperature_of = (temp-273.15).toInt();
   var condition = weatherdata["weather"][0]["id"];
   condition_w=condition;
   weather_icon = weather.getweathericon(condition);
